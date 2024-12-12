@@ -31,7 +31,7 @@ const s_dataWeatherEmpty = {
 };
 
 const s_pathCwd = process.cwd();
-const s_pathdoc = process.env["dir.doc"] || path.join(s_pathCwd, "doc");
+const s_pathdocs = process.env["dir.docs"] || path.join(s_pathCwd, "docs");
 const s_pathFeedback = process.env["dir.feedback"] || path.join(s_pathCwd, "feedback");
 
 const s_strDataWeatherEmpty = JSON.stringify(s_dataWeatherEmpty);
@@ -52,13 +52,13 @@ async function fetchOpenWeatherMap(p_city) {
 }
 //#endregion
 
-s_app.use(express.static(s_pathdoc));
+s_app.use(express.static(s_pathdocs));
 s_app.use(bodyParser.urlencoded({ extended: true }));
 
 //#region Files.
 s_app.get("/", (p_request, p_response) => {
 
-	p_response.sendFile(path.join(s_pathdoc, "index.html"));
+	p_response.sendFile(path.join(s_pathdocs, "index.html"));
 
 });
 
@@ -82,14 +82,14 @@ s_app.post("/feedback", (p_request, p_response) => {
 
 				p_response
 					.status(500)
-					.sendFile(path.join(s_pathdoc, "feedback-error.html"));
+					.sendFile(path.join(s_pathdocs, "feedback-error.html"));
 
 				return;
 			}
 
 			p_response
 				.status(200)
-				.sendFile(path.join(s_pathdoc, "feedback-given.html"));
+				.sendFile(path.join(s_pathdocs, "feedback-given.html"));
 
 		}
 	);
